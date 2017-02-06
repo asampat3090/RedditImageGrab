@@ -71,7 +71,7 @@ def extract_imgur_album_urls(album_url):
     Returns:
         List of qualified imgur URLs
     """
-    response = request(album_url)
+    response = request(album_url, timeout=5)
     info = response.info()
 
     # Rudimentary check to ensure the URL actually specifies an HTML file
@@ -123,7 +123,7 @@ def download_from_url(url, dest_file):
     if pathexists(dest_file):
         raise FileExistsException('URL [%s] already downloaded.' % url)
 
-    response = request(url)
+    response = request(url, timeout=5)
     info = response.info()
     actual_url = response.url
     if actual_url == 'http://i.imgur.com/removed.png':
